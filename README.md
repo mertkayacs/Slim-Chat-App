@@ -1,58 +1,61 @@
-Created by : Mert KAYA.
+# Slim-Chat-App
 
-Last Change Date : 22-December-2021 00:40
+A small chat API written in PHP with the Slim 3 framework. It exposes two POST endpoints, one for sending a message between two users and one for listing a user's messages, backed by a SQLite database through PDO.
 
-In order to run the project : 
-    
-    -Be sure to have PHP,SLIM and SQLITE installed in your computer.
-    
-    -Check php.ini file for slim,sqlite and pdo settings, uncomment them by deleting ";" . 
-    
-    -Make sure you have created the database tables correctly. SQL queries for this is given in the end of this README.
-    
-    -Run on php virtual server by the following command on slim-chat-app folder.
-    php -S localhost:8000
+## How to run
 
-    -Make sure to install and run composer by following command.
-    composer require slim/slim:3.*
-    composer update
+Requires PHP with the PDO SQLite extension enabled, and Composer.
 
-    -Be sure to follow parameter rules for the receiving and sending message apis.
+```
+composer install
+php -S localhost:8000
+```
 
-    -If you have any more questions watch the demo video which is sent to you with this project in a .zip file
+The SQLite database file is included at `db/slimchatdatabase.db`. If you want to create the tables from scratch:
 
+```sql
+CREATE TABLE "users" (
+    "userid"    INTEGER,
+    "username"  TEXT,
+    PRIMARY KEY("userid","username")
+);
 
+CREATE TABLE "messages" (
+    "messageid"       INTEGER,
+    "senderUserid"    INTEGER,
+    "receiverUserid"  INTEGER,
+    "message"         TEXT,
+    PRIMARY KEY("messageid")
+);
+```
 
-Q/A : 
-    Q1 : Why isn't there any Auth for Api.
-    A1 : This was not asked in the pdf file. Bearer token can be added.
+There is no user registration endpoint, so users must be inserted into the `users` table directly before messages can be sent between them.
 
-    Q2 : Why isn't there user register, login pages .
-    A2 : This was not asked in the pdf file but can be added easily into database.
-    A2 cont': If password added it must be stored as hashed in database :D 
+### API
 
-    Q3 : Why isn't there .html .phtml pages for views .
-    A3 : Simply it was not asked in pdf :) 
-    
+Both endpoints take parameters as form-data (key, value pairs).
 
+`POST /getMessages`
 
+- `username`: the user whose messages to list.
+- Returns a JSON array of messages (messageid, sender username, receiver username, message text) ordered by messageid ascending. Returns 404 if the user does not exist.
 
-To create users table run following SQL query.
+`POST /postMessages`
 
-    CREATE TABLE "users" (
-        "userid"	INTEGER,
-        "username"	TEXT,
-        PRIMARY KEY("userid","username")
-    );
+- `senderUsername`, `receiverUsername`, `message`.
+- Inserts the message into the database and returns a JSON status with code 201.
 
+## Tech used
 
+- PHP
+- Slim Framework 3 (`slim/slim: ^3.0` in composer.json)
+- SQLite via PDO
+- Composer
 
-To create messages table run following SQL query.
+## Status
 
-    CREATE TABLE "messages" (
-        "messageid"	INTEGER,
-        "senderUserid"	INTEGER,
-        "receiverUserid"	INTEGER,
-        "message"	TEXT,
-        PRIMARY KEY("messageid")
-    );
+Assignment project, 2021. No authentication or user registration (not part of the original assignment scope).
+
+## License
+
+MIT License. See LICENSE.
