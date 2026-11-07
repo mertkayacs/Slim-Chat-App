@@ -76,7 +76,7 @@ $app->post('/postMessages', function ($request, $response, $args) {
     }
 
     //Returns the successArray with 201 Created.
-    return $this->response->withStatus(201)->withHeader(“Content-Type”,”application/json”)->withJson($successArray);
+    return $this->response->withStatus(201)->withHeader("Content-Type","application/json")->withJson($successArray);
     
     
 });
