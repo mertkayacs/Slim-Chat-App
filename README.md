@@ -27,6 +27,13 @@
   <a href="index.php"><img alt="Source" src="https://img.shields.io/badge/Source-1E2A38?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNNiAyMmEyIDIgMCAwIDEtMi0yVjRhMiAyIDAgMCAxIDItMmg4YTIuNCAyLjQgMCAwIDEgMS43MDQuNzA2bDMuNTg4IDMuNTg4QTIuNCAyLjQgMCAwIDEgMjAgOHYxMmEyIDIgMCAwIDEtMiAyeiIvPjxwYXRoIGQ9Ik0xNCAydjVhMSAxIDAgMCAwIDEgMWg1Ii8%2BPHBhdGggZD0iTTEwIDEyLjUgOCAxNWwyIDIuNSIvPjxwYXRoIGQ9Im0xNCAxMi41IDIgMi41LTIgMi41Ii8%2BPC9nPjwvc3ZnPg%3D%3D&logoColor=white"></a>
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.webp">
+    <img src="docs/assets/readme/hero-light.webp" alt="Code of the getMessages route in index.php with its error handling" width="960">
+  </picture>
+</p>
+
 Slim Chat is a small chat API written in PHP on the Slim 3 framework, as an assignment in 2021. It exposes two POST endpoints, one for sending a message between two users and one for listing a user's messages, backed by a SQLite database through PDO. The database file ships with the repository.
 
 ---
@@ -40,6 +47,49 @@ The API keeps the surface small.
 | <img src="docs/assets/readme/icons/route.svg" width="18" height="18" alt=""> **Two endpoints** | `/postMessages` stores a message and `/getMessages` lists a user's messages, ordered by message id. |
 | <img src="docs/assets/readme/icons/database.svg" width="18" height="18" alt=""> **One SQLite file** | [db/slimchatdatabase.db](db/slimchatdatabase.db) holds the users and messages tables, with a few test rows. |
 | <img src="docs/assets/readme/icons/layers.svg" width="18" height="18" alt=""> **Small codebase** | Routes live in index.php. The message logic is in app/Message.php and the database connection in app/SQLiteConnectionEstablisher.php. |
+
+## A quick tour
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/get-dark.webp">
+        <img src="docs/assets/readme/tour/get-light.webp" alt="Code card of the getMessages route in index.php">
+      </picture>
+      <h3>Read messages</h3>
+      The getMessages route returns a user's messages as JSON, or status 404 when the user is unknown.
+    </td>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/send-dark.webp">
+        <img src="docs/assets/readme/tour/send-light.webp" alt="Code card of the sendMessageForUsername method">
+      </picture>
+      <h3>Send a message</h3>
+      Both user ids are looked up and the next message id is generated before the row is inserted.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/lookup-dark.webp">
+        <img src="docs/assets/readme/tour/lookup-light.webp" alt="Code card of the user lookup method in Message.php">
+      </picture>
+      <h3>User lookup</h3>
+      A prepared statement with a bound parameter finds the user id for a name.
+    </td>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/conn-dark.webp">
+        <img src="docs/assets/readme/tour/conn-light.webp" alt="Code card of the SQLiteConnectionEstablisher class">
+      </picture>
+      <h3>Database connection</h3>
+      The SQLite file is opened through PDO using the path from Config.
+    </td>
+  </tr>
+</table>
+
+<p align="center"><sub>Code cards show the files as they are in the repository.</sub></p>
 
 ## Features
 
@@ -118,6 +168,6 @@ If Slim Chat is useful to you, a ⭐ helps other people find it.
 
 ## License
 
-[MIT License](LICENSE). See the LICENSE file for the full text.
+[MIT License](LICENSE). Photos behind the screenshots are credited in [docs/assets/readme/CREDITS.md](docs/assets/readme/CREDITS.md).
 
 [![views](https://hits.sh/github.com/mertkayacs/Slim-Chat-App.svg?view=today-total&style=flat-square&label=views&color=0F6B66&labelColor=1E2A38)](https://github.com/mertkayacs/Slim-Chat-App)
