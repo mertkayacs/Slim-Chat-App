@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h1 align="center">A chat API in Slim and SQLite. Two endpoints, one database file.</h1>
+<h1 align="center">A chat API in Slim and SQLite.<br>Two endpoints, one database file.</h1>
 
 <p align="center">
   Assignment project from 2021: a small chat backend in PHP with Slim 3.<br>
@@ -30,7 +30,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.webp">
-    <img src="docs/assets/readme/hero-light.webp" alt="Code of the getMessages route in index.php with its error handling" width="960">
+    <img src="docs/assets/readme/hero-light.webp" alt="Code of the getMessages route in index.php that returns a user&#x27;s messages as JSON" width="960">
   </picture>
 </p>
 
@@ -46,7 +46,7 @@ The API keeps the surface small.
 |---|---|
 | <img src="docs/assets/readme/icons/route.svg" width="18" height="18" alt=""> **Two endpoints** | `/postMessages` stores a message and `/getMessages` lists a user's messages, ordered by message id. |
 | <img src="docs/assets/readme/icons/database.svg" width="18" height="18" alt=""> **One SQLite file** | [db/slimchatdatabase.db](db/slimchatdatabase.db) holds the users and messages tables, with a few test rows. |
-| <img src="docs/assets/readme/icons/layers.svg" width="18" height="18" alt=""> **Small codebase** | Routes live in index.php. The message logic is in app/Message.php and the database connection in app/SQLiteConnectionEstablisher.php. |
+| <img src="docs/assets/readme/icons/layers.svg" width="18" height="18" alt=""> **Small codebase** | Routes live in index.php. The message logic is in app/Message.php and the database connection in the [SQLite connection class](app/SQLiteConnectionEstablisher.php). |
 
 ## A quick tour
 
@@ -54,11 +54,11 @@ The API keeps the surface small.
   <tr>
     <td width="50%" valign="top">
       <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/get-dark.webp">
-        <img src="docs/assets/readme/tour/get-light.webp" alt="Code card of the getMessages route in index.php">
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/post-dark.webp">
+        <img src="docs/assets/readme/tour/post-light.webp" alt="Code card of the postMessages route in index.php that reads the request body">
       </picture>
-      <h3>Read messages</h3>
-      The getMessages route returns a user's messages as JSON, or status 404 when the user is unknown.
+      <h3>Send route</h3>
+      The postMessages route creates a Message object and reads the parsed request body.
     </td>
     <td width="50%" valign="top">
       <picture>
@@ -133,10 +133,10 @@ There is no registration endpoint, so insert users into the users table directly
 
 Both endpoints take form-data.
 
-| Endpoint | Parameters | Response in the code |
-|---|---|---|
-| `POST /getMessages` | `username` | A JSON array of messages ordered by message id, or status 404 when the user does not exist. |
-| `POST /postMessages` | `senderUsername`, `receiverUsername`, `message` | A JSON status with HTTP code 201. |
+| Endpoint and parameters | Response in the code |
+|---|---|
+| `POST /getMessages` with `username` | A JSON array of messages ordered by message id, or status 404 when the user does not exist. |
+| `POST /postMessages` with `senderUsername`, `receiverUsername`, `message` | A JSON status with HTTP code 201. |
 
 ## FAQ
 
